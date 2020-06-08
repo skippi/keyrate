@@ -72,7 +72,7 @@ fn main() {
             0,
         ) == 0
         {
-            println!("could not set keys: {}", errhandlingapi::GetLastError());
+            eprintln!("error: Could not set keys: error code {}", errhandlingapi::GetLastError());
         }
     }
 }
