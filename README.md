@@ -10,8 +10,10 @@ Configure keyboard repeat rate and delay time for Windows 10.
 
 # Usage
 
-```
+```txt
 keyrate 0.1.0
+
+Configure keyboard repeat rate and delay time for Windows 10.
 
 This program uses Filter Keys to pseudo modify keyboard settings. If no
 arguments are present, the program disables Filter Keys. Otherwise, the

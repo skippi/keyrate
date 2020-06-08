@@ -13,6 +13,8 @@ const FKF_AVAILABLE: DWORD = 0x00000002;
 const FKF_FILTERKEYSON: DWORD = 0x00000001;
 
 const LONG_ABOUT: &str = "
+Configure keyboard repeat rate and delay time for Windows 10.\n\
+\n\
 This program uses Filter Keys to pseudo modify keyboard settings. If no\n\
 arguments are present, the program disables Filter Keys. Otherwise, the\n\
 program enables and initializes Filter Keys with the given or\n\
@@ -35,7 +37,7 @@ impl Default for FILTERKEYS {
 }
 
 #[derive(StructOpt, Debug)]
-#[structopt(about, long_about = LONG_ABOUT)]
+#[structopt(long_about = LONG_ABOUT)]
 struct Opt {
     #[structopt(short, help = "Clicks per second (31)")]
     rate: Option<f64>,
@@ -72,7 +74,10 @@ fn main() {
             0,
         ) == 0
         {
-            eprintln!("error: Could not set keys: error code {}", errhandlingapi::GetLastError());
+            eprintln!(
+                "error: Could not set keys: error code {}",
+                errhandlingapi::GetLastError()
+            );
         }
     }
 }
