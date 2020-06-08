@@ -12,6 +12,13 @@ use winapi::STRUCT;
 const FKF_AVAILABLE: DWORD = 0x00000002;
 const FKF_FILTERKEYSON: DWORD = 0x00000001;
 
+const LONG_ABOUT: &str = "
+This program uses Filter Keys to pseudo modify keyboard settings. If no\n\
+arguments are present, the program disables Filter Keys. Otherwise, the\n\
+program enables and initializes Filter Keys with the given or\n\
+defaulted parameters.
+";
+
 STRUCT! {struct FILTERKEYS {
     cbSize: UINT,
     dwFlags: DWORD,
@@ -28,11 +35,12 @@ impl Default for FILTERKEYS {
 }
 
 #[derive(StructOpt, Debug)]
+#[structopt(about, long_about = LONG_ABOUT)]
 struct Opt {
-    #[structopt(short)]
+    #[structopt(short, help = "Clicks per second (31)")]
     rate: Option<f64>,
 
-    #[structopt(short)]
+    #[structopt(short, help = "Delay time (250ms)")]
     delay: Option<u32>,
 }
 
