@@ -8,7 +8,7 @@ jobs:
     - rust: nightly
   fast_finish: true
 before_install:
-  - rustup add component rustfmt
+  - rustup component add rustfmt
 script:
   - cargo build --verbose --all
   - cargo test --verbose --all
