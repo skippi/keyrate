@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/skippi/keyrate.svg?branch=master)](https://travis-ci.com/skippi/keyrate)
+
 # keyrate
 
 Configure keyboard repeat rate and delay time for Windows 10.
