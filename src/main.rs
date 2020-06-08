@@ -30,22 +30,29 @@ impl Default for FILTERKEYS {
 #[derive(StructOpt, Debug)]
 struct Opt {
     #[structopt(short)]
-    rate: f64,
+    rate: Option<f64>,
 
     #[structopt(short)]
-    delay: u32,
+    delay: Option<u32>,
 }
 
 fn main() {
     let opt = Opt::from_args();
 
-    let clicks_per_second = (1.0 / opt.rate) * 1000.0;
+    let dwFlag = match (&opt.rate, &opt.delay) {
+        (None, None) => 0,
+        _ => FKF_AVAILABLE | FKF_FILTERKEYSON,
+    };
 
-    let mut keys = FILTERKEYS {
-        cbSize: mem::size_of::<FILTERKEYS>() as u32,
-        dwFlags: FKF_AVAILABLE | FKF_FILTERKEYSON,
-        iDelayMSec: opt.delay,
-        iRepeatMSec: clicks_per_second.round() as DWORD,
+    let delay_period = opt.delay.unwrap_or(250);
+    let clicks_per_second = opt.rate.unwrap_or(31.0);
+    let repeat_period = 1000.0 / clicks_per_second;
+
+    let keys = FILTERKEYS {
+        cbSize: mem::size_of::<FILTERKEYS>() as UINT,
+        dwFlags: dwFlag,
+        iDelayMSec: delay_period,
+        iRepeatMSec: repeat_period.round() as DWORD,
         ..Default::default()
     };
 
@@ -53,7 +60,7 @@ fn main() {
         if winuser::SystemParametersInfoW(
             winuser::SPI_SETFILTERKEYS,
             keys.cbSize,
-            &mut keys as *mut _ as PVOID,
+            &keys as *const _ as PVOID,
             0,
         ) == 0
         {
