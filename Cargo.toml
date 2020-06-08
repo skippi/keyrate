@@ -4,6 +4,9 @@ version = "0.1.0"
 authors = ["skippi <jbtcao@gmail.com>"]
 edition = "2018"
 
+[dependencies]
+structopt = "0.3.14"
+
 [dependencies.winapi]
 version = "0.3.8"
 features = ["winuser", "minwindef", "errhandlingapi"]

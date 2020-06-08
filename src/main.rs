@@ -1,6 +1,7 @@
 #![allow(non_snake_case)]
 
 use std::mem;
+use structopt::StructOpt;
 use winapi::shared::minwindef::DWORD;
 use winapi::shared::minwindef::UINT;
 use winapi::um::errhandlingapi;
@@ -26,12 +27,25 @@ impl Default for FILTERKEYS {
     }
 }
 
+#[derive(StructOpt, Debug)]
+struct Opt {
+    #[structopt(short)]
+    rate: f64,
+
+    #[structopt(short)]
+    delay: u32,
+}
+
 fn main() {
+    let opt = Opt::from_args();
+
+    let clicks_per_second = (1.0 / opt.rate) * 1000.0;
+
     let mut keys = FILTERKEYS {
         cbSize: mem::size_of::<FILTERKEYS>() as u32,
         dwFlags: FKF_AVAILABLE | FKF_FILTERKEYSON,
-        iDelayMSec: 175,
-        iRepeatMSec: 6,
+        iDelayMSec: opt.delay,
+        iRepeatMSec: clicks_per_second.round() as DWORD,
         ..Default::default()
     };
 
