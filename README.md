@@ -2,13 +2,13 @@
 
 Configure keyboard repeat rate and delay time for Windows 10.
 
-# Motivation
+## Motivation
 
 - Wanted to speed up VIM ijkl movement and other repetitive actions.
 - Needed an accessible alternative to editing the Windows Registry keyboard
   settings.
 
-# Usage
+## Usage
 
 ```txt
 keyrate 0.1.0
