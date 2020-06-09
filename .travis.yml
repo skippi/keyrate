@@ -1,3 +1,4 @@
+os: windows
 language: rust
 rust:
   - stable
@@ -10,6 +11,6 @@ jobs:
 before_install:
   - rustup component add rustfmt
 script:
-  - cargo build --verbose --all
-  - cargo test --verbose --all
+  - cargo build --verbose --target x86_64-pc-windows-gnu --all
+  - cargo test --verbose --target x86_64-pc-windows-gnu --all
   - cargo fmt -- --check

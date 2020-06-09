@@ -38,5 +38,4 @@ OPTIONS:
 
 Use `cargo build` and preferred binary flags to get a binary.
 
-Since keyrate depends on `winapi`, only the `i686-pc-windows-gnu` and
-`x86_64-pc-windows-gnu` targets are supported.
+Since keyrate depends on `winapi`, only `windows` targets are supported.
